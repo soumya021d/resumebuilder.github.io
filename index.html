@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resume Builder</title>
+  <style>
+    #resume-builder {
+      width: 300px;
+    }
+
+    .section-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .drag-handle {
+      cursor: move;
+      margin-right: 10px;
+    }
+
+    .edit-button,
+.info-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 5px; 
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  margin-right: 5px; 
+}
+
+.section-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f5f5f5;
+  margin-bottom: 10px;
+}
+
+.section-name {
+  flex-grow: 1;
+  margin-right: 5px; 
+}
+
+
+    .toggle-switch input {
+      display: none;
+    }
+
+    .slider {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+      background-color: #ccc;
+      border-radius: 20px;
+      transition: background-color 0.2s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .toggle-switch input:checked + .slider {
+      background-color: #2ecc71;
+    }
+
+    .toggle-switch input:checked + .slider:before {
+      transform: translateX(16px);
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    #save-button {
+      margin-top: 20px;
+    }
+
+    .section-description {
+      display: none;
+      position: absolute;
+      background-color: white;
+      padding: 5px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      font-size: 7px;
+    }
+
+    .section-item:hover .section-description {
+      display: block;
+    }
+
+    .section-description p {
+      margin: 0;
+    }
+
+    .section-item.dragging {
+      opacity: 0.5;
+      cursor: grabbing;
+    }
+  </style>
+</head>
+<body>
+  <div id="resume-builder">
+    <h2>Select your sections</h2>
+    <ul id="section-list">
+      <li class="section-item">
+        <span class="drag-handle">&#9776;</span>
+        <span class="section-name">Profile Summary</span>
+        <button class="edit-button">&#9998;</button>
+        <label class="toggle-switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+        <button class="info-button">&#9432;</button>
+        <div class="section-description">
+          <p>Description for Profile Summary section.</p>
+        </div>
+      </li>
+      <li class="section-item">
+        <span class="drag-handle">&#9776;</span>
+        <span class="section-name">Academic and Co-curricular Achievements</span>
+        <button class="edit-button">&#9998;</button>
+        <label class="toggle-switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+        <button class="info-button">&#9432;</button>
+        <div class="section-description">
+          <p>Description for Academic and Co-curricular Achievements section.</p>
+        </div>
+      </li>
+      <li class="section-item">
+        <span class="drag-handle">&#9776;</span>
+        <span class="section-name">Summer Internship Experience</span>
+        <button class="edit-button">&#9998;</button>
+        <label class="toggle-switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+        <button class="info-button">&#9432;</button>
+        <div class="section-description">
+          <p>Description for Summer Internship Experience section.</p>
+        </div>
+      </li>
+      <li class="section-item">
+        <span class="drag-handle">&#9776;</span>
+        <span class="section-name">Work Experience</span>
+        <button class="edit-button">&#9998;</button>
+        <label class="toggle-switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+        <button class="info-button">&#9432;</button>
+        <div class="section-description">
+          <p>Description for Work Experience section.</p>
+        </div>
+      </li>
+      <li class="section-item">
+        <span class="drag-handle">&#9776;</span>
+        <span class="section-name">Projects</span>
+        <button class="edit-button">&#9998;</button>
+        <label class="toggle-switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+        <button class="info-button">&#9432;</button>
+        <div class="section-description">
+          <p>Description for Projects section.</p>
+        </div>
+      </li>
+      <li class="section-item">
+        <span class="drag-handle">&#9776;</span>
+        <span class="section-name">Certifications</span>
+        <button class="edit-button">&#9998;</button>
+        <label class="toggle-switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+        <button class="info-button">&#9432;</button>
+        <div class="section-description">
+          <p>Description for Certifications section.</p>
+        </div>
+      </li>
+      <li class="section-item">
+        <span class="drag-handle">&#9776;</span>
+        <span class="section-name">Leadership Positions</span>
+        <button class="edit-button">&#9998;</button>
+        <label class="toggle-switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+        <button class="info-button">&#9432;</button>
+        <div class="section-description">
+          <p>Description for Leadership Positions section.</p>
+        </div>
+      </li>
+      <li class="section-item">
+        <span class="drag-handle">&#9776;</span>
+        <span class="section-name">Extracurricular</span>
+        <button class="edit-button">&#9998;</button>
+        <label class="toggle-switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+        <button class="info-button">&#9432;</button>
+        <div class="section-description">
+          <p>Description for Extracurricular section.</p>
+        </div>
+      </li>
+      <li class="section-item">
+        <span class="drag-handle">&#9776;</span>
+        <span class="section-name">Education</span>
+        <button class="edit-button">&#9998;</button>
+        <label class="toggle-switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+        <button class="info-button">&#9432;</button>
+        <div class="section-description">
+          <p>Description for Education section.</p>
+        </div>
+      </li>
+    </ul>
+    <button id="save-button" disabled>Save</button>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+  <script>
+    $(function() {
+      $("#section-list").sortable();
+
+      $("#section-list").on("sortupdate", function() {
+        $("#save-button").prop("disabled", false);
+      });
+
+      $(".drag-handle").on("mousedown", function() {
+        $(this).closest(".section-item").addClass("dragging");
+      });
+
+      $(".drag-handle").on("mouseup", function() {
+        $(this).closest(".section-item").removeClass("dragging");
+      });
+
+      $(".edit-button").on("click", function() {
+        var sectionItem = $(this).closest(".section-item");
+        var sectionName = sectionItem.find(".section-name").text();
+        var newSectionName = prompt("Enter new section name:", sectionName);
+        if (newSectionName) {
+          sectionItem.find(".section-name").text(newSectionName);
+          $("#save-button").prop("disabled", false);
+        }
+      });
+
+      $(".toggle-switch input").on("change", function() {
+        $("#save-button").prop("disabled", false);
+      });
+
+      $(".info-button").on("click", function() {
+        var sectionItem = $(this).closest(".section-item");
+        var sectionName = sectionItem.find(".section-name").text();
+        alert("Description for section: " + sectionName);
+      });
+
+      $("#save-button").on("click", function() {
+        $(this).prop("disabled", true);
+      });
+    });
+  </script>
+</body>
+</html>
